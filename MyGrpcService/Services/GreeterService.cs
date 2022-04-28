@@ -103,6 +103,8 @@ namespace MyGrpcService.Services
       IServerStreamWriter<Candidate> responseStream, 
       ServerCallContext context)
     {
+      Console.WriteLine("[Receive] CreateDownloadCv");
+
       // 將收到的資料逐一取出
       while (await requestStream.MoveNext())
       {
