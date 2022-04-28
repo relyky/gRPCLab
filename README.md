@@ -1,6 +1,14 @@
 # gRPCLab
 gRPC 基本練習
 
+0. 基本通訊: SayHello
+1. 主機端串流 RPC (server-side streaming RPC)   
+適合從 server 端取得較大資料量時使用
+2. 用戶端串流 RPC (client-side streaming RPC)   
+適合傳送較大資料量至 server 端時使用
+3. 雙向串流 RPC (bidirectional streaming RPC)   
+適合在 client 與 server 端間雙向傳送大資料量或是即時資料時使用
+
 # 參考文件
 * [C# 搭配 gRPC 中使用 stream RPC](https://blog.yowko.com/csharp-grpc-stream/)
 * [1.gRPC Server & Unary Calls | gRPC in .NET 5](https://www.youtube.com/watch?v=hp5FTB7PI9s)
