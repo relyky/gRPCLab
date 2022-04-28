@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+option csharp_namespace = "MyGrpcService";
+
+package greet;
+
+// The greeting service definition.
+service Greeter {
+  // Sends a greeting
+  rpc SayHello (HelloRequest) returns (HelloReply);
+
+  // 主機端串流 RPC (server-side streaming RPC)
+  rpc DownloadCv (DownloadByName) returns (stream Candidate);
+
+  // 用戶端串流 RPC (client-side streaming RPC)
+  rpc CreateCv (stream Candidate) returns (CreateCvResponse);
+
+  // 雙向串流 RPC (bidirectional streaming RPC)
+  rpc CreateDownloadCv (stream Candidate) returns (stream Candidate);
+}
+
+// The [SayHello] request message
+message HelloRequest {
+  string name = 1;
+}
+
+// The [SayHello] response message
+message HelloReply {
+  string message = 1;
+}
+
+// The [DownloadCv] message
+message DownloadByName {
+    string Name = 1;
+}
+
+message Candidate {
+    string Name = 1;
+    repeated Job Jobs = 2;
+}
+
+message Job {
+    string Title = 1;
+    int32 Salary = 2;
+    string JobDescription = 3;
+}
+
+// The [CreateCv] message
+message CreateCvResponse {
+    bool IsSuccess = 1;
+    int32 Count = 2; // 上傳筆數
+}
