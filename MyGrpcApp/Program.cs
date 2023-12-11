@@ -32,14 +32,19 @@ while (true)
   else if (key.Key == ConsoleKey.B)
   {
     Console.WriteLine(Environment.NewLine + "# 主機端串流 gRPC ------------");
-    Console.WriteLine("適合從 server 端取得較大資料量時使用。");
+    Console.WriteLine("適合從 server 端取得較大資料量時使用 或 非同步背景 下載。");
 
-    using var resp = client.DownloadCv(new DownloadByName { Name = "Bar" });
-    while (resp.ResponseStream.MoveNext().Result)
+    // 非同步下載
+    var t = Task.Run(() =>
     {
-      var item = resp.ResponseStream.Current;
-      Console.WriteLine($"{item.Name}, {item.Jobs[0].Title}, {item.Jobs[1].Title}");
-    }
+      using var resp = client.DownloadCv(new DownloadByName { Name = "Bar" });
+      while (resp.ResponseStream.MoveNext().Result)
+      {
+        var item = resp.ResponseStream.Current;
+        Console.WriteLine($"{item.Name}, {item.Jobs[0].Title}, {item.Jobs[1].Title}");
+      }
+    });
+
     //===========================================
   }
   else if (key.Key == ConsoleKey.C)
@@ -110,7 +115,7 @@ while (true)
 
     // 將資料逐一輸出至 server
     Candidate new1 = new() { Name = $"Foo" };
-    await ctx.RequestStream.WriteAsync(new1);    
+    await ctx.RequestStream.WriteAsync(new1);
 
     // 將資料逐一輸出至 server
     Candidate new2 = new() { Name = $"Bar" };

@@ -54,14 +54,28 @@ namespace MyGrpcService.Services
       await responseStream.WriteAsync(new1);
 
       // 將每筆資料逐一透過 WriteAsync 輸出
+      await Task.Delay(1000);
       Candidate new2 = new() { Name = $"{request.Name}#2" };
       new2.Jobs.AddRange(jobList);
       await responseStream.WriteAsync(new2);
 
       // 將每筆資料逐一透過 WriteAsync 輸出
+      await Task.Delay(1000);
       Candidate new3 = new() { Name = $"{request.Name}#3" };
       new3.Jobs.AddRange(jobList);
       await responseStream.WriteAsync(new3);
+
+      // 將每筆資料逐一透過 WriteAsync 輸出
+      await Task.Delay(1000);
+      Candidate new4 = new() { Name = $"{request.Name}#4" };
+      new4.Jobs.AddRange(jobList);
+      await responseStream.WriteAsync(new4);
+
+      // 將每筆資料逐一透過 WriteAsync 輸出
+      await Task.Delay(1000);
+      Candidate new5 = new() { Name = $"{request.Name}#5" };
+      new5.Jobs.AddRange(jobList);
+      await responseStream.WriteAsync(new5);
     }
 
     /// <summary>
@@ -110,7 +124,7 @@ namespace MyGrpcService.Services
       {
         // 逐筆取得並處理
         var item = requestStream.Current;
-        item.Name = $"item.Name:已處理";
+        item.Name = $"{item.Name}:已處理";
         
         // 將處理後的資料回傳
         await responseStream.WriteAsync(item);
